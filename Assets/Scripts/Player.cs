@@ -6,7 +6,7 @@ namespace ashlight.james_strike_again
     public class Player : MonoBehaviour
     {
         private IPlayerController _playerController;
-        private IPlayerAnimationHandler _animationHandler;
+        private IAnimationHandler _animationHandler;
         private Rigidbody _rb;
         
         [SerializeField] private float speed;
@@ -14,7 +14,7 @@ namespace ashlight.james_strike_again
         private void Awake()
         {
             _playerController = GetComponent<IPlayerController>();
-            _animationHandler = GetComponent<IPlayerAnimationHandler>();
+            _animationHandler = GetComponent<IAnimationHandler>();
             _rb = GetComponent<Rigidbody>();
         }
 
@@ -47,6 +47,7 @@ namespace ashlight.james_strike_again
             {
                 _rb.velocity = new Vector3(0, _rb.velocity.y) + -transform.forward * speed * Mathf.Abs(direction); // backward
             }
+            _animationHandler.SetParameter("speed", direction);
         }
     }
 }

@@ -15,22 +15,8 @@ namespace ashlight.james_strike_again {
         IsFinalAttack
     }
 
-    public class PlayerAnimationHandler : MonoBehaviour, IPlayerAnimationHandler {
-        [SerializeField] private Transform rightHandSlot;
-        [SerializeField] private Transform leftHandSlot;
+    public class PlayerAnimationHandler : MonoBehaviour, IAnimationHandler {
         [SerializeField] private Animator animator;
-
-        public Transform RightHandSlot
-        {
-            get => rightHandSlot;
-            private set => leftHandSlot = value;
-        }
-
-        public Transform LeftHandSlot
-        {
-            get => leftHandSlot;
-            private set => leftHandSlot = value;
-        }
 
         public void SetParameter(string parameterName, object parameterValue = null) {
             switch (parameterValue) {

@@ -323,9 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc71251c2a024ca4ac9ac7108ae95797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightHandSlot: {fileID: 0}
-  leftHandSlot: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 742638829}
 --- !u!114 &742638832
 MonoBehaviour:
   m_ObjectHideFlags: 0

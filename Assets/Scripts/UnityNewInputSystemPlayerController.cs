@@ -32,7 +32,6 @@ namespace ashlight.james_strike_again {
         private void Update()
         {
             MovementDirection = PlayerInputActions.Player.Move.ReadValue<Vector2>().x;
-            
         }
 
         private void InitialiseUniversalEvents() {

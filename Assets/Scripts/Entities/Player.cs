@@ -29,7 +29,7 @@ namespace ashlight.james_strike_again
         }
 
         private void RegisterPlayerControllerEvents() {
-            // _playerController.OnJump += Jump;
+            _playerController.OnJump += Jump;
             // _playerController.OnCrouch += Crouch;
             // _playerController.OnStopCrouch += StopCrouch;
             // _playerController.OnDash += Dash;
@@ -48,6 +48,11 @@ namespace ashlight.james_strike_again
                 _rb.velocity = new Vector3(0, _rb.velocity.y) + -transform.forward * speed * Mathf.Abs(direction); // backward
             }
             _animationHandler.SetParameter("speed", direction);
+        }
+
+        private void Jump()
+        {
+            
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ashlight.james_strike_again
 {
-    public class IAScript : Entity
+    public class AI : Entity
     {
         [SerializeField] private float fireRate;
         [SerializeField] private float range;
@@ -44,10 +44,10 @@ namespace ashlight.james_strike_again
         {
             if (Vector3.Distance(player.transform.position, transform.position) <= range)
             {
-                Debug.Log("EstAPortée");
+                Debug.Log("EstAPortï¿½e");
                 RaycastHit hit;
                 Debug.DrawRay(transform.position, transform.forward, Color.red);
-                //Le joueur est à portée de l'IA on vérifie si il y a un obstacle entre les deux
+                //Le joueur est ï¿½ portï¿½e de l'IA on vï¿½rifie si il y a un obstacle entre les deux
                 if (Physics.Raycast(transform.position, transform.forward, out hit, float.MaxValue, playerMask))
                 {
                     Debug.Log(hit);

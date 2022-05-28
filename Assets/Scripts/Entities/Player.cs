@@ -1,58 +1,14 @@
 using System;
+using ashlight.james_strike_again.StateMachine;
 using UnityEngine;
 
 namespace ashlight.james_strike_again
 {
-    public class Player : MonoBehaviour
+    public class Player : Entity
     {
-        private IPlayerController _playerController;
-        private IAnimationHandler _animationHandler;
-        private Rigidbody _rb;
-        
-        [SerializeField] private float speed;
-
-        private void Awake()
+        public override void TakeDamage(float damage)
         {
-            _playerController = GetComponent<IPlayerController>();
-            _animationHandler = GetComponent<IAnimationHandler>();
-            _rb = GetComponent<Rigidbody>();
-        }
-
-        private void Start()
-        {
-            RegisterPlayerControllerEvents();
-        }
-
-        private void FixedUpdate()
-        {
-            Move();
-        }
-
-        private void RegisterPlayerControllerEvents() {
-            _playerController.OnJump += Jump;
-            // _playerController.OnCrouch += Crouch;
-            // _playerController.OnStopCrouch += StopCrouch;
-            // _playerController.OnDash += Dash;
-            // _playerController.OnShoot += Shoot;
-        }
-
-        private void Move()
-        {
-            float direction = _playerController.MovementDirection;
-            if (direction > 0)
-            {
-                _rb.velocity = new Vector3(0, _rb.velocity.y) + transform.forward * direction * speed * direction; // forward
-            }
-            else
-            {
-                _rb.velocity = new Vector3(0, _rb.velocity.y) + -transform.forward * speed * Mathf.Abs(direction); // backward
-            }
-            _animationHandler.SetParameter("speed", direction);
-        }
-
-        private void Jump()
-        {
-            
+            Health -= damage;
         }
     }
 }

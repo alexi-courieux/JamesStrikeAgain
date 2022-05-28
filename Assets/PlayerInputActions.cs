@@ -143,7 +143,7 @@ namespace ashlight.james_strike_again
                 {
                     ""name"": """",
                     ""id"": ""5ae626d2-0de3-4418-8a6a-a76dadf9dd97"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -176,7 +176,7 @@ namespace ashlight.james_strike_again
                 {
                     ""name"": """",
                     ""id"": ""6bcbc2f4-e28b-471a-980a-932ad4169d3e"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -222,7 +222,7 @@ namespace ashlight.james_strike_again
                     ""id"": ""3ede3b4f-be82-48ad-9465-ad6f83cefcb3"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone"",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Move"",
                     ""isComposite"": false,

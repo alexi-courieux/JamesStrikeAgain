@@ -1,7 +1,6 @@
 ﻿using System;
-using UnityEngine;
 
-namespace ashlight.james_strike_again {
+namespace ashlight.james_strike_again.Controller {
     public interface IPlayerController {
         // system
         public event Action OnPause;

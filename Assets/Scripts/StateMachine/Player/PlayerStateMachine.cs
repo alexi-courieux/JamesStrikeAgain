@@ -1,5 +1,8 @@
 ﻿using System;
+using ashlight.james_strike_again.Animation;
+using ashlight.james_strike_again.Controller;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace ashlight.james_strike_again.StateMachine
 {
@@ -9,6 +12,9 @@ namespace ashlight.james_strike_again.StateMachine
         [SerializeField] private int maxJumpCount = 1;
         [SerializeField] private float jumpHeight;
         [SerializeField] private Transform groundCheckOrigin;
+        [SerializeField] private Transform aimTarget;
+        [SerializeField] private LayerMask mouseAimMask;
+        [SerializeField] private Transform neck;
         public PlayerBaseState CurrentState { get; set; }
         public Rigidbody Rigidbody { get; private set; }
         
@@ -23,10 +29,10 @@ namespace ashlight.james_strike_again.StateMachine
         public float? LastJumpTime { get; set; }
         public float Speed => speed;
         public bool CanMoveFreelyWhileCrouched { get; set; }
-        
         public Transform GroundCheckOrigin => groundCheckOrigin;
-
-
+        public bool IsAimingBehind { get; private set; }
+        private UnityEngine.Camera _camera;
+        
         private void Awake()
         {
             PlayerController = GetComponent<IPlayerController>();
@@ -39,6 +45,7 @@ namespace ashlight.james_strike_again.StateMachine
         }
         private void Start()
         {
+            _camera = UnityEngine.Camera.main;
             RegisterPlayerControllerEvents();
         }
 
@@ -53,6 +60,8 @@ namespace ashlight.james_strike_again.StateMachine
         private void Update()
         {
             CurrentState.UpdateStates();
+            HandleRotation();
+            HandleAimPointerPosition();
         }
 
         private void Jump()
@@ -67,6 +76,37 @@ namespace ashlight.james_strike_again.StateMachine
         private void StopCrouch()
         {
             IsCrouching = false;
+        }
+
+        private void HandleRotation()
+        {
+            IsAimingBehind = Mathf.Sign(aimTarget.position.x - transform.position.x) < 0;
+            Rigidbody.MoveRotation(Quaternion.Euler(new Vector3(0, 90 * (IsAimingBehind ? -1 : 1), 0)));
+        }
+
+        private void HandleAimPointerPosition()
+        {
+            Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, mouseAimMask))
+            {
+                aimTarget.position = hit.point;
+            }
+        }
+
+        private void OnAnimatorIK()
+        {
+            // Define the hands as fully controlled by IK
+            AnimationHandler.Animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
+            AnimationHandler.Animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
+            // Aim at target
+            Vector3 aimTargetPosition = aimTarget.position;
+            Vector3 position = transform.position;
+            AnimationHandler.Animator.SetIKPosition(AvatarIKGoal.RightHand, new Vector3(aimTargetPosition.x, aimTargetPosition.y, position.z));
+            AnimationHandler.Animator.SetIKPosition(AvatarIKGoal.LeftHand, new Vector3(aimTargetPosition.x, aimTargetPosition.y, position.z));
+            // Look at target
+            AnimationHandler.Animator.SetLookAtWeight(0.5f);
+            AnimationHandler.Animator.SetLookAtPosition(aimTargetPosition);
         }
     }
 }

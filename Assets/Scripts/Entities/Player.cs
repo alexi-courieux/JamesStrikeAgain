@@ -1,8 +1,4 @@
-using System;
-using ashlight.james_strike_again.StateMachine;
-using UnityEngine;
-
-namespace ashlight.james_strike_again
+namespace ashlight.james_strike_again.Entities
 {
     public class Player : Entity
     {

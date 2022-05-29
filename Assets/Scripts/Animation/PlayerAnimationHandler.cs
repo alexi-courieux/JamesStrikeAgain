@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ashlight.james_strike_again {
+namespace ashlight.james_strike_again.Animation {
     public enum PlayerAnimationParameter {
         ForwardBackwardMovement,
         LeftRightMovement,
@@ -17,7 +17,7 @@ namespace ashlight.james_strike_again {
 
     public class PlayerAnimationHandler : MonoBehaviour, IAnimationHandler {
         [SerializeField] private Animator animator;
-
+        public Animator Animator => animator;
         public void SetParameter(string parameterName, object parameterValue = null) {
             switch (parameterValue) {
                 case null: {

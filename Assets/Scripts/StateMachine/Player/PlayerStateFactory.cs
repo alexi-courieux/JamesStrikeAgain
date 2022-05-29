@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using ashlight.james_strike_again.StateMachine;
-using UnityEngine;
-
-namespace ashlight.james_strike_again
+namespace ashlight.james_strike_again.StateMachine
 {
     public class PlayerStateFactory
     {

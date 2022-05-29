@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ashlight.james_strike_again.StateMachine;
+using UnityEngine;
 
 namespace ashlight.james_strike_again.StateMachine
 {
@@ -19,7 +20,7 @@ namespace ashlight.james_strike_again.StateMachine
         public override void UpdateState()
         {
             CheckSwitchStates();
-            Context.AnimationHandler.SetParameter("speed", Context.PlayerController.MovementDirection);
+            Context.AnimationHandler.SetParameter("speed", Context.PlayerController.MovementDirection * (Context.IsAimingBehind ? -1 : 1));
             HandleMove();
         }
 

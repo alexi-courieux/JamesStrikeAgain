@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace ashlight.james_strike_again {
+namespace ashlight.james_strike_again.Controller {
     public class UnityNewInputSystemPlayerController : MonoBehaviour, IPlayerController {
 
         public event Action OnPause;

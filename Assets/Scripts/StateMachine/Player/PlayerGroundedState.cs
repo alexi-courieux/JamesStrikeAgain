@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace ashlight.james_strike_again.StateMachine
+﻿namespace ashlight.james_strike_again.StateMachine
 {
     public sealed class PlayerGroundedPlayerBaseState : PlayerBaseState
     {

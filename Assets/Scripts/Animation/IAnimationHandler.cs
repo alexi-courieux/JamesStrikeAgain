@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
-namespace ashlight.james_strike_again {
+namespace ashlight.james_strike_again.Animation {
     public interface IAnimationHandler {
+        public Animator Animator { get; }
         /// <summary>
         /// Permet de définir la valeur d'un paramètre
         /// </summary>

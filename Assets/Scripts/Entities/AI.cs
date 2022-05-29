@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ashlight.james_strike_again.Entities;
 using UnityEngine;
 
 namespace ashlight.james_strike_again

@@ -12,7 +12,6 @@ namespace ashlight.james_strike_again.StateMachine
         [SerializeField] private int maxJumpCount = 1;
         [SerializeField] private float jumpHeight;
         [SerializeField] private Transform groundCheckOrigin;
-        [SerializeField] private Transform aimTarget;
         [SerializeField] private LayerMask mouseAimMask;
         [SerializeField] private Transform neck;
         public PlayerBaseState CurrentState { get; set; }
@@ -32,6 +31,7 @@ namespace ashlight.james_strike_again.StateMachine
         public Transform GroundCheckOrigin => groundCheckOrigin;
         public bool IsAimingBehind { get; private set; }
         private UnityEngine.Camera _camera;
+        private Vector3 aimTarget;
         
         private void Awake()
         {
@@ -80,7 +80,7 @@ namespace ashlight.james_strike_again.StateMachine
 
         private void HandleRotation()
         {
-            IsAimingBehind = Mathf.Sign(aimTarget.position.x - transform.position.x) < 0;
+            IsAimingBehind = Mathf.Sign(aimTarget.x - transform.position.x) < 0;
             Rigidbody.MoveRotation(Quaternion.Euler(new Vector3(0, 90 * (IsAimingBehind ? -1 : 1), 0)));
         }
 
@@ -90,7 +90,7 @@ namespace ashlight.james_strike_again.StateMachine
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, mouseAimMask))
             {
-                aimTarget.position = hit.point;
+                aimTarget = hit.point;
             }
         }
 
@@ -100,7 +100,7 @@ namespace ashlight.james_strike_again.StateMachine
             AnimationHandler.Animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
             AnimationHandler.Animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
             // Aim at target
-            Vector3 aimTargetPosition = aimTarget.position;
+            Vector3 aimTargetPosition = aimTarget;
             Vector3 position = transform.position;
             AnimationHandler.Animator.SetIKPosition(AvatarIKGoal.RightHand, new Vector3(aimTargetPosition.x, aimTargetPosition.y, position.z));
             AnimationHandler.Animator.SetIKPosition(AvatarIKGoal.LeftHand, new Vector3(aimTargetPosition.x, aimTargetPosition.y, position.z));

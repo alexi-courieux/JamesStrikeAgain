@@ -8,28 +8,22 @@ namespace ashlight.james_strike_again.Entities
         public event Action OnHealthChanged;
         public event Action OnDeath;
         [SerializeField] private float health;
-
+        public float MaxHealth { get; private set; }
         public float Health { 
             get { return health; } 
             protected set {
                 health = value;
-                OnHealthChanged.Invoke();
+                OnHealthChanged?.Invoke();
                 if (health <= 0)
                 {
-                    OnDeath.Invoke();
+                    OnDeath?.Invoke();
                 }
             } }
 
         // Start is called before the first frame update
         void Start()
         {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
+            MaxHealth = Health;
         }
 
         public abstract void TakeDamage(float damage);

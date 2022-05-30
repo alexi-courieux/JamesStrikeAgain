@@ -23,10 +23,25 @@ namespace ashlight.james_strike_again.StateMachine
         public bool IsJumpTriggered { get; set; }
         public bool IsCrouching { get; set; }
         public int JumpCount { get; set; }
-        public int MaxJumpCount => maxJumpCount;
-        public float JumpHeight => jumpHeight;
+        public int MaxJumpCount
+        {
+            get => maxJumpCount;
+            set => maxJumpCount = value;
+        }
+
+        public float JumpHeight
+        {
+            get => jumpHeight;
+            set => jumpHeight = value;
+        }
+
         public float? LastJumpTime { get; set; }
-        public float Speed => speed;
+        public float Speed
+        {
+            get => speed;
+            set => speed = value;
+        }
+
         public bool CanMoveFreelyWhileCrouched { get; set; }
         public Transform GroundCheckOrigin => groundCheckOrigin;
         public bool IsAimingBehind { get; private set; }

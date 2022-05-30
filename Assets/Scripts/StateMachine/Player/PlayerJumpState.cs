@@ -60,6 +60,9 @@ namespace ashlight.james_strike_again.StateMachine
             
             if (Context.JumpCount >= Context.MaxJumpCount) return; // Can we jump again ?
             Context.JumpCount++;
+            Vector3 velocity = Context.Rigidbody.velocity;
+            velocity = new Vector3(velocity.x, 0, velocity.z);
+            Context.Rigidbody.velocity = velocity;
             Context.Rigidbody.AddForce(Vector3.up * Context.JumpHeight, ForceMode.VelocityChange);
             Context.LastJumpTime = Time.time;
             Context.AnimationHandler.SetParameter("jump");

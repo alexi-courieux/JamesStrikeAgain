@@ -23,6 +23,8 @@ namespace ashlight.james_strike_again
 
         public IAnimationHandler AnimationHandler { get; private set; }
         private Rigidbody _rigidbody;
+        private bool CanShoot;
+        private bool allowInvoke = true;
 
         private GameObject player;
 
@@ -30,6 +32,7 @@ namespace ashlight.james_strike_again
         {
             AnimationHandler = GetComponent<IAnimationHandler>();
             _rigidbody = GetComponent<Rigidbody>();
+            CanShoot = true;
         }
 
         // Start is called before the first frame update
@@ -45,18 +48,38 @@ namespace ashlight.james_strike_again
 
             if (IsPlayerInRange())
             {
-                Shoot();
+                if (CanShoot)
+                    Shoot();
             }
         }
 
         private void Shoot()
         {
+            CanShoot = false;
             if (Physics.Raycast(bulletOrigin.position, bulletOrigin.position - targetPosition.position))
             {
                 Debug.Log("pioupiou");
+                Vector3 trueBulletPosition = new Vector3(bulletOrigin.position.x, bulletOrigin.position.y, transform.position.z);
+                GameObject currentBullet = Instantiate(bullet, trueBulletPosition, Quaternion.identity);
+                currentBullet.transform.LookAt(targetPosition.position);
+
+                currentBullet.GetComponent<Rigidbody>().AddForce(currentBullet.transform.forward * 10, ForceMode.Impulse);
+                
+
+                if (allowInvoke)
+                {
+                    Invoke("ShootAgain", fireRate);
+                    allowInvoke = false;
+                }
             }
 
             Debug.Log("AQueCoucou");
+        }
+
+        private void ShootAgain()
+        {
+            CanShoot = true;
+            allowInvoke = true;
         }
 
 
@@ -77,6 +100,8 @@ namespace ashlight.james_strike_again
         public override void TakeDamage(float damage)
         {
             Health -= damage;
+            if (Health <= 0)
+                Destroy(gameObject);
         }
 
         private void OnAnimatorIK()

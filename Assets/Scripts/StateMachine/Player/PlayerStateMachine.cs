@@ -14,6 +14,8 @@ namespace ashlight.james_strike_again.StateMachine
         [SerializeField] private Transform groundCheckOrigin;
         [SerializeField] private LayerMask mouseAimMask;
         [SerializeField] private Transform neck;
+        [SerializeField] private GameObject bullet;
+        [SerializeField] private Transform bulletOrigin;
         public PlayerBaseState CurrentState { get; set; }
         public Rigidbody Rigidbody { get; private set; }
         
@@ -54,7 +56,7 @@ namespace ashlight.james_strike_again.StateMachine
             PlayerController.OnCrouch += Crouch;
             PlayerController.OnStopCrouch += StopCrouch;
             // PlayerController.OnDash += Dash;
-            // PlayerController.OnShoot += Shoot;
+             PlayerController.OnShoot += Shoot;
         }
 
         private void Update()
@@ -76,6 +78,17 @@ namespace ashlight.james_strike_again.StateMachine
         private void StopCrouch()
         {
             IsCrouching = false;
+        }
+
+        private void Shoot()
+        {
+            Vector3 bulletPosition = new Vector3(bulletOrigin.position.x, bulletOrigin.position.y, transform.position.z);
+            GameObject currentBullet = Instantiate(bullet, bulletPosition, Quaternion.identity);
+            currentBullet.transform.LookAt(aimTarget);
+
+            Debug.DrawRay(bulletPosition, currentBullet.transform.forward);
+
+            currentBullet.GetComponent<Rigidbody>().AddForce(currentBullet.transform.forward * 10, ForceMode.Impulse);
         }
 
         private void HandleRotation()

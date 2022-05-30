@@ -53,7 +53,7 @@ namespace ashlight.james_strike_again
                     ""id"": ""f2349d90-4533-4d23-bfbf-05038db879cb"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {

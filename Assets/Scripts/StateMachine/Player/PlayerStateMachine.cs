@@ -104,6 +104,7 @@ namespace ashlight.james_strike_again.StateMachine
             Debug.DrawRay(bulletPosition, currentBullet.transform.forward);
 
             currentBullet.GetComponent<Rigidbody>().AddForce(currentBullet.transform.forward * 10, ForceMode.Impulse);
+            currentBullet.GetComponent<Projectile>().IsFromPlayer = true;
         }
 
         private void HandleRotation()

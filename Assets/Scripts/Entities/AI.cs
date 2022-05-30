@@ -38,7 +38,9 @@ namespace ashlight.james_strike_again
         // Start is called before the first frame update
         void Start()
         {
-            player = GameObject.FindGameObjectWithTag("Player");
+            player = Player.Instance.gameObject;
+            player.GetComponent<Player>().OnDeath += Respawn;
+            
             //player = Player.Instance();
         }
 
@@ -82,6 +84,12 @@ namespace ashlight.james_strike_again
             allowInvoke = true;
         }
 
+        private void Respawn()
+        {
+            gameObject.SetActive(true);
+            Health = 1;
+        }
+
 
         private bool IsPlayerInRange ()
         {
@@ -101,7 +109,7 @@ namespace ashlight.james_strike_again
         {
             Health -= damage;
             if (Health <= 0)
-                Destroy(gameObject);
+                gameObject.SetActive(false);
         }
 
         private void OnAnimatorIK()

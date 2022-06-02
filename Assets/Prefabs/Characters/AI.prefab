@@ -1446,7 +1446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   fireRate: 0.5
-  range: 5
+  range: 8
   damage: 1
   playerMask:
     serializedVersion: 2

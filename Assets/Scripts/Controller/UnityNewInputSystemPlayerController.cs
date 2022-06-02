@@ -64,7 +64,6 @@ namespace ashlight.james_strike_again.Controller {
         }
         private void Shoot(InputAction.CallbackContext context) {
             OnShoot?.Invoke();
-            Debug.Log("J'ai tiré");
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace ashlight.james_strike_again.Entities
+namespace ashlight.james_strike_again.entities
 {
     public abstract class Entity : MonoBehaviour
     {
@@ -9,7 +9,7 @@ namespace ashlight.james_strike_again.Entities
         public event Action OnDeath;
         private bool _isDead;
         [SerializeField] private float health;
-        public float MaxHealth { get; private set; }
+        public float MaxHealth { get; set; }
         public float Health { 
             get { return health; } 
             protected set {

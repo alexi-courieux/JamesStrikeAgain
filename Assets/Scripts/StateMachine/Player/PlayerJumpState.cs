@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ashlight.james_strike_again.StateMachine
+namespace ashlight.james_strike_again.player
 {
     public sealed class PlayerJumpPlayerBaseState : PlayerBaseState
     {

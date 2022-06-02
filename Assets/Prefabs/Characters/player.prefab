@@ -1241,12 +1241,13 @@ MonoBehaviour:
   speed: 0.1
   maxJumpCount: 1
   jumpHeight: 10
+  fireRate: 1
   groundCheckOrigin: {fileID: 1374444353960372634}
   mouseAimMask:
     serializedVersion: 2
     m_Bits: 256
   neck: {fileID: 1839272364691876}
-  bullet: {fileID: 8835931943728194931, guid: 3f6b7aadddaef3e479cd4397699b019c, type: 3}
+  bullet: {fileID: 4736381202597930067, guid: 27154fd44cacb8c43af02ce12a0b3229, type: 3}
   bulletOrigin: {fileID: 4295998622323174077}
 --- !u!1 &4060809502247837614
 GameObject:

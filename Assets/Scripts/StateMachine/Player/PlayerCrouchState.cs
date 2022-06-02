@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ashlight.james_strike_again.StateMachine
+namespace ashlight.james_strike_again.player
 {
     public sealed class PlayerCrouchPlayerBaseState : PlayerBaseState
 
@@ -42,7 +42,8 @@ namespace ashlight.james_strike_again.StateMachine
         
         private void HandleMove()
         {
-            Context.Rigidbody.MovePosition(Context.transform.position + new Vector3(Context.PlayerController.MovementDirection * Context.Speed, 0, 0));
+            Vector3 movement = new Vector3(Context.PlayerController.MovementDirection * Context.Speed, 0, 0);
+            Context.Rigidbody.MovePosition(Context.transform.position + movement);
         }
     }
 }

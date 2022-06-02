@@ -1,4 +1,4 @@
-﻿namespace ashlight.james_strike_again.StateMachine
+﻿namespace ashlight.james_strike_again.player
 {
     public sealed class PlayerGroundedPlayerBaseState : PlayerBaseState
     {

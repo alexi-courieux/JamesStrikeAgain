@@ -77,8 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922a4214aa65f974d9d72e6f83384adf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 3
-  collider: {fileID: 1269119137375604543}
+  lifeTime: 1
   damage: 1
 --- !u!96 &1370674220107221713
 TrailRenderer:

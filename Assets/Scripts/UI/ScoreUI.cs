@@ -1,7 +1,6 @@
-using ashlight.james_strike_again.Entities;
+using ashlight.james_strike_again.player;
 using TMPro;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace ashlight.james_strike_again.UI
 {

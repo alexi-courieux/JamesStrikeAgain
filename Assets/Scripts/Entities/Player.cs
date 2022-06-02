@@ -1,9 +1,8 @@
-using System;
-using ashlight.james_strike_again.StateMachine;
+using ashlight.james_strike_again.entities;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace ashlight.james_strike_again.Entities
+namespace ashlight.james_strike_again.player
 {
     public class Player : Entity
     {
@@ -49,11 +48,18 @@ namespace ashlight.james_strike_again.Entities
             float random = Random.Range(0, 100);
             switch (random)
             {
-                case < 50:
+                case < 30:
                     _stateMachine.Speed += 0.02f;
                     break;
-                case < 100:
+                case < 60:
                     _stateMachine.JumpHeight += 1;
+                    break;
+                case < 90:
+                    _stateMachine.FireRate -= 0.1f;
+                    break;
+                case <= 100:
+                    MaxHealth++;
+                    Health = MaxHealth;
                     break;
             }
         }

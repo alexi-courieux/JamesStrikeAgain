@@ -1,87 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using ashlight.james_strike_again.Animation;
-using ashlight.james_strike_again.Entities;
+using ashlight.james_strike_again.player;
 using UnityEngine;
 
-namespace ashlight.james_strike_again
+namespace ashlight.james_strike_again.entities
 {
     public class AI : Entity
     {
         [SerializeField] private float fireRate;
         [SerializeField] private float range;
-        [SerializeField] private float damage;
-        [SerializeField] private LayerMask playerMask;
-        //[SerializeField] private float health;
-
-        [SerializeField] private Collider collider;
         [SerializeField] private Transform bulletOrigin;
         [SerializeField] private GameObject bullet;
         [SerializeField] private Transform targetPosition;
 
-        [SerializeField] private Transform gun;
-
-        public IAnimationHandler AnimationHandler { get; private set; }
+        private IAnimationHandler AnimationHandler { get; set; }
         private Rigidbody _rigidbody;
-        private bool CanShoot;
-        private bool allowInvoke = true;
-
-        private GameObject player;
+        private bool _canShoot;
 
         private void Awake()
         {
             AnimationHandler = GetComponent<IAnimationHandler>();
             _rigidbody = GetComponent<Rigidbody>();
-            CanShoot = true;
+            _canShoot = true;
         }
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
-            player = Player.Instance.gameObject;
-            player.GetComponent<Player>().OnDeath += Respawn;
-            
-            //player = Player.Instance();
+            Player.Instance.OnDeath += Respawn;
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-
-            if (IsPlayerInRange())
-            {
-                if (CanShoot)
-                    Shoot();
-            }
+            if (!IsPlayerInRange()) return;
+            if (_canShoot) Shoot();
         }
 
         private void Shoot()
         {
-            CanShoot = false;
-            if (Physics.Raycast(bulletOrigin.position, bulletOrigin.position - targetPosition.position))
-            {
-                Debug.Log("pioupiou");
-                Vector3 trueBulletPosition = new Vector3(bulletOrigin.position.x, bulletOrigin.position.y, transform.position.z);
-                GameObject currentBullet = Instantiate(bullet, trueBulletPosition, Quaternion.identity);
-                currentBullet.transform.LookAt(targetPosition.position);
-
-                currentBullet.GetComponent<Rigidbody>().AddForce(currentBullet.transform.forward * 10, ForceMode.Impulse);
-                
-
-                if (allowInvoke)
-                {
-                    Invoke("ShootAgain", fireRate);
-                    allowInvoke = false;
-                }
-            }
-
-            Debug.Log("AQueCoucou");
+            _canShoot = false;
+            
+            if (!Physics.Raycast(bulletOrigin.position, bulletOrigin.position - targetPosition.position)) return;
+            
+            Vector3 trueBulletPosition = new Vector3(bulletOrigin.position.x, bulletOrigin.position.y, transform.position.z);
+            GameObject currentBullet = Instantiate(bullet, trueBulletPosition, Quaternion.identity);
+            currentBullet.transform.LookAt(targetPosition.position);
+            currentBullet.GetComponent<Rigidbody>().AddForce(currentBullet.transform.forward * 10, ForceMode.Impulse);
+            Invoke(nameof(AllowShoot), fireRate);
         }
 
-        private void ShootAgain()
+        private void AllowShoot()
         {
-            CanShoot = true;
-            allowInvoke = true;
+            _canShoot = true;
         }
 
         private void Respawn()
@@ -93,16 +65,11 @@ namespace ashlight.james_strike_again
 
         private bool IsPlayerInRange ()
         {
-            if (Vector3.Distance(targetPosition.position, transform.position) <= range)
-            {
-                Debug.Log("EstAPort�e");
-
-                bool isAimingBehind = Mathf.Sign(targetPosition.position.x - transform.position.x) < 0;
-                _rigidbody.MoveRotation(Quaternion.Euler(new Vector3(0, 90 * (isAimingBehind ? -1 : 1), 0)));
-
-                return true;
-            }
-            return false; 
+            if (!(Vector3.Distance(targetPosition.position, transform.position) <= range)) return false;
+            
+            bool isAimingBehind = Mathf.Sign(targetPosition.position.x - transform.position.x) < 0;
+            _rigidbody.MoveRotation(Quaternion.Euler(new Vector3(0, 90 * (isAimingBehind ? -1 : 1), 0)));
+            return true;
         }
 
         public override void TakeDamage(float damage)

@@ -15,7 +15,7 @@ namespace ashlight.james_strike_again
         {
             Entity entity = other.transform.GetComponent<Entity>();
 
-            bool isPlayer = other.CompareTag(Player.PLAYER_TAG);
+            bool isPlayer = other.CompareTag(Player.PlayerTag);
             if ((isFromPlayer && !isPlayer) || (!isFromPlayer && isPlayer))
             {
                 entity?.TakeDamage(damage);

@@ -8,7 +8,7 @@ namespace ashlight.james_strike_again
         [SerializeField] private float damage = 1;
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(Player.PLAYER_TAG))
+            if (other.CompareTag(Player.PlayerTag))
             {
                 Player.Instance.TakeDamage(damage);
             }

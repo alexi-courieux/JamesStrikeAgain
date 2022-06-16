@@ -6,7 +6,7 @@ namespace ashlight.james_strike_again.player
 {
     public class Player : Entity
     {
-        public static string PLAYER_TAG = "Player";
+        public const string PlayerTag = "Player";
         public static Player Instance { get; private set; }
         private Vector3 _spawnPoint;
         private PlayerStateMachine _stateMachine;
